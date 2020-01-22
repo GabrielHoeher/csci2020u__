@@ -1,4 +1,4 @@
-package main.csci2020u.lab02;
+package main.java.csci2020u.lab02;
 
 public class SimpleTest {
 	public static void main(String[] args) {
