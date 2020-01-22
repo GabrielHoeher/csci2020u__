@@ -1,1 +1,13 @@
+plugins {
+	id "application"
+}
+
 apply plugin: 'java'
+
+ext {
+	javaMainClass = "SimpleTest.java"
+}
+
+application  {
+	mainClassName = javaMainClass
+}
