@@ -6,6 +6,15 @@
  * User Manual available at https://docs.gradle.org/6.1/userguide/tutorial_java_projects.html
  */
 
+buildscript {
+  repositories {
+    flatDir dirs: 'proguard6.2.2/lib'
+  }
+  dependencies {
+    classpath ':proguard'
+  }
+}
+
 plugins {
     // Apply the java plugin to add support for Java
     id 'java'
@@ -13,6 +22,24 @@ plugins {
     // Apply the application plugin to add support for building a CLI application.
     id 'application'
 }
+
+gradle
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+  manifest {
+    attributes 'Main-Class': 'gradleDemo.demo',
+          'Implementation-Title': 'Gradle-Demo',
+          'Implementation-Version': version
+  }
+}
+
+task (minify, dependsOn: 'jar', type: proguard.gradle.ProGuardTask) {
+  configuration 'proguard.cfg'
+  injars 'build/libs/Lab03.jar'
+  outjars 'build/libs/Lab03.min.jar'
+}
+
 
 apply plugin: 'java'
 
@@ -31,6 +58,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     compile group: 'org.apache.commons', name: 'commons-csv', version: '1.1'
+
 }
 
 application {
